@@ -1,15 +1,18 @@
 
 # Gold Futures Trading Strategy & Risk Analysis
 
-## Overview
+## Project Overview
 
-A Python-based quantitative trading project that
-backtests a trend-following strategy on historical
-gold futures prices (GC=F).
+This project explores quantitative trading strategies
+in commodity markets using Python and historical gold
+futures data.
 
-The strategy uses moving averages to identify
-trading opportunities and evaluates performance
-against a buy-and-hold benchmark.
+It implements a trend-following trading strategy based
+on moving averages and evaluates its performance against
+a buy-and-hold benchmark.
+
+The primary objective is to understand systematic trading
+signals, market trends, and risk-adjusted performance.
 
 ## Technologies Used
 
@@ -23,67 +26,88 @@ against a buy-and-hold benchmark.
 
 The strategy uses three technical indicators:
 
-- 20-day SMA: Short-term moving average
-- 50-day SMA: Medium-term moving average
-- 100-day SMA: Long-term trend filter
+| Indicator | Purpose |
+|-----------|---------|
+| 20-day SMA | Short-term market trend |
+| 50-day SMA | Medium-term market trend |
+| 100-day SMA | Long-term trend filter |
 
 ### Trading Rules
 
-**Long Signal:**
+**Long Position:**
 - 20-day SMA > 50-day SMA
 - Gold price > 100-day SMA
 
-**Exit Signal:**
+**Exit Position:**
 - 20-day SMA <= 50-day SMA, or
 - Gold price <= 100-day SMA
 
-The strategy shifts trading signals by one day
-to avoid using future information.
+Trading positions are shifted by one trading day to
+reduce look-ahead bias in the historical backtest.
 
 ## Backtesting Methodology
 
-1. Download historical gold futures price data.
-2. Calculate the moving-average indicators.
+1. Download historical gold futures data (`GC=F`).
+2. Calculate 20-day, 50-day, and 100-day moving averages.
 3. Generate systematic trading signals.
-4. Calculate daily and cumulative strategy returns.
-5. Compare the strategy with buy-and-hold.
-6. Evaluate Sharpe ratio and maximum drawdown.
+4. Calculate daily strategy returns.
+5. Compute cumulative strategy performance.
+6. Compare results against buy-and-hold.
+7. Evaluate risk-adjusted performance.
 
-## Risk Management and Analysis
+## Risk Analysis
+
+The strategy evaluates:
 
 ### Sharpe Ratio
-
-Evaluates historical returns relative to volatility.
+Measures historical returns relative to volatility.
 
 ### Maximum Drawdown
+Measures the largest decline from a previous
+portfolio performance peak.
 
-Measures the largest percentage decline from
-a previous peak in strategy performance.
+### Cumulative Returns
+Compares overall strategy performance with
+buy-and-hold.
 
-### Benchmark Comparison
+## Results and Visualization
 
-Compares strategy performance with a passive
-buy-and-hold investment in gold.
+The project generates a comparison chart showing
+the strategy's cumulative performance relative
+to the buy-and-hold benchmark.
 
-## Results
+![Trading Strategy Performance](strategy_vs_benchmark.png)
 
-The backtest generates performance metrics and
-a chart comparing the strategy and benchmark.
+Performance depends on market conditions,
+historical data, and strategy parameters.
 
-![Strategy Performance](strategy_vs_benchmark.png)
+## Project Structure
 
-Results depend on the selected historical period.
-The strategy does not guarantee future profitability.
+```text
+Gold-Futures-Trading-Strategy/
+├── gold_strategy.py
+├── requirements.txt
+├── strategy_vs_benchmark.png
+├── README.md
+└── .gitignore
+```
 
-## How to Run
+## Installation
 
-### Install Dependencies
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Surajeata/Gold-Futures-Trading-Strategy.git
+cd Gold-Futures-Trading-Strategy
+```
+
+### 2. Install dependencies
 
 ```bash
 python -m pip install -r requirements.txt
 ```
 
-### Execute the Strategy
+### 3. Run the project
 
 ```bash
 python gold_strategy.py
@@ -91,14 +115,15 @@ python gold_strategy.py
 
 ## Limitations
 
+- Historical results do not guarantee future returns.
 - Transaction costs and slippage are not modeled.
-- Futures contract rolling and margin are not modeled.
-- Moving averages can produce false signals.
-- Historical results do not predict future returns.
+- Futures margin and contract rolling are not modeled.
+- Moving averages may generate false signals in sideways markets.
 
 ## Future Improvements
 
-- Test alternative moving-average combinations.
-- Introduce transaction costs.
-- Compare risk-adjusted performance across periods.
-- Expand analysis to other commodities.
+- Test different moving-average combinations.
+- Incorporate transaction costs.
+- Introduce stop-loss and position-sizing rules.
+- Extend the analysis to crude oil and silver.
+- Compare performance across different market regimes.
